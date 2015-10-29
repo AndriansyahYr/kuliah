@@ -1,0 +1,237 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'IMAGE PROCESSING'
+  ClientHeight = 665
+  ClientWidth = 773
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Bevel1: TBevel
+    Left = 312
+    Top = 32
+    Width = 287
+    Height = 41
+  end
+  object Bevel3: TBevel
+    Left = 312
+    Top = 96
+    Width = 177
+    Height = 33
+  end
+  object imggambar: TImage
+    Left = 344
+    Top = 176
+    Width = 353
+    Height = 329
+    Transparent = True
+  end
+  object Label1: TLabel
+    Left = 16
+    Top = 13
+    Width = 25
+    Height = 13
+    Caption = 'Drive'
+  end
+  object Label2: TLabel
+    Left = 312
+    Top = 13
+    Width = 66
+    Height = 13
+    Caption = 'Alamat Folder'
+  end
+  object LalamatFld: TLabel
+    Left = 322
+    Top = 38
+    Width = 108
+    Height = 13
+    Caption = 'C:\Windows\system32'
+  end
+  object Label4: TLabel
+    Left = 8
+    Top = 288
+    Width = 50
+    Height = 13
+    Caption = 'Daftar File'
+  end
+  object Label3: TLabel
+    Left = 279
+    Top = 619
+    Width = 46
+    Height = 13
+    Caption = 'Nama File'
+  end
+  object drvgambar: TDriveComboBox
+    Left = 8
+    Top = 32
+    Width = 265
+    Height = 19
+    DirList = fdgambar
+    TabOrder = 0
+  end
+  object fdgambar: TDirectoryListBox
+    Left = 8
+    Top = 57
+    Width = 265
+    Height = 225
+    DirLabel = LalamatFld
+    FileList = flgambar
+    TabOrder = 1
+  end
+  object flgambar: TFileListBox
+    Left = 8
+    Top = 307
+    Width = 265
+    Height = 265
+    FileEdit = EdAlamatFile
+    ShowGlyphs = True
+    TabOrder = 2
+    OnClick = flgambarClick
+  end
+  object Rggambar: TRadioGroup
+    Left = 8
+    Top = 578
+    Width = 265
+    Height = 81
+    Caption = 'Filter'
+    Items.Strings = (
+      'Bitmaps (*.bmp)                '
+      'JPEG (*.jpg)'
+      'Metafile (*.wmf)                '
+      'Ikon (*.ico)')
+    TabOrder = 3
+    OnClick = RggambarClick
+  end
+  object EdAlamatFile: TEdit
+    Left = 279
+    Top = 638
+    Width = 320
+    Height = 21
+    Enabled = False
+    TabOrder = 4
+    Text = '*.*'
+  end
+  object TLearn: TButton
+    Left = 322
+    Top = 96
+    Width = 75
+    Height = 33
+    Caption = 'Learn'
+    Enabled = False
+    TabOrder = 5
+    OnClick = TLearnClick
+  end
+  object TRecognize: TButton
+    Left = 403
+    Top = 96
+    Width = 75
+    Height = 33
+    Caption = 'Recognize'
+    Enabled = False
+    TabOrder = 6
+    OnClick = TRecognizeClick
+  end
+  object btfullscreen: TButton
+    Left = 686
+    Top = 559
+    Width = 75
+    Height = 25
+    Caption = '&Full Screen'
+    TabOrder = 7
+    Visible = False
+  end
+  object StringGrid1: TStringGrid
+    Left = 279
+    Top = 452
+    Width = 320
+    Height = 120
+    ColCount = 11
+    RowCount = 11
+    TabOrder = 8
+    ColWidths = (
+      64
+      64
+      64
+      64
+      64
+      64
+      64
+      64
+      64
+      64
+      64)
+    RowHeights = (
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24
+      24)
+  end
+  object Button1: TButton
+    Left = 375
+    Top = 578
+    Width = 75
+    Height = 25
+    Caption = 'Process'
+    Enabled = False
+    TabOrder = 9
+    OnClick = Button1Click
+  end
+  object TObjek: TEdit
+    Left = 478
+    Top = 578
+    Width = 121
+    Height = 21
+    Enabled = False
+    TabOrder = 10
+  end
+  object StringGrid2: TStringGrid
+    Left = 449
+    Top = 135
+    Width = 320
+    Height = 120
+    ColCount = 11
+    RowCount = 11
+    TabOrder = 11
+    Visible = False
+  end
+  object Button2: TButton
+    Left = 279
+    Top = 578
+    Width = 90
+    Height = 25
+    Caption = 'UNRECOGNIZE'
+    TabOrder = 12
+    OnClick = Button2Click
+  end
+  object Button3: TButton
+    Left = 464
+    Top = 424
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 13
+  end
+  object Button4: TButton
+    Left = 648
+    Top = 40
+    Width = 75
+    Height = 25
+    Caption = 'Button4'
+    TabOrder = 14
+    OnClick = Button4Click
+  end
+end

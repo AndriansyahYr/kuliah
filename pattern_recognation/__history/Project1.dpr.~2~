@@ -1,0 +1,20 @@
+program Project1;
+
+uses
+  Vcl.Forms,
+  Unit1 in 'Unit1.pas' {Form1},
+  ufullscreen in 'ufullscreen.pas' {frmfullscreen};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(Tfrmfullscreen, frmfullscreen);
+  Application.CreateForm(Tfrmfullscreen, frmfullscreen);
+  Application.CreateForm(Tfrmfullscreen, frmfullscreen);
+  Application.CreateForm(Tfrmfullscreen, frmfullscreen);
+  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(Tfrmfullscreen, frmfullscreen);
+  Application.Run;
+end.

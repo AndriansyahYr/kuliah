@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012/05/05 18:17:56.000.764,=C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2012/05/17 19:13:41.168,=C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2012/05/17 19:15:28.643,C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.pas=C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2012/05/17 19:15:28.643,C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.dfm=C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit2.dfm</Transaction>
+    <Transaction>2012/05/17 19:21:20.998,D:\image browser\ufullscreen.dfm=C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.dfm</Transaction>
+    <Transaction>2012/05/17 19:21:20.998,D:\image browser\ufullscreen.pas=C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.pas</Transaction>
+    <Transaction>2012/05/17 19:22:33.420,=D:\image browser\Unit1.pas</Transaction>
+    <Transaction>2012/05/17 19:43:32.324,D:\image browser\Project1.dproj=C:\Users\ANDORI\Documents\RAD Studio\Projects\Project1.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

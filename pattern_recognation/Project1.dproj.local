@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2012/05/05 18:17:56.000.764,=C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2012/05/17 19:13:41.000.168,=C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2012/05/17 19:15:28.000.643,C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit2.pas=C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.pas</Transaction>
+    <Transaction>2012/05/17 19:15:28.000.643,C:\Users\ANDORI\Documents\RAD Studio\Projects\Unit2.dfm=C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.dfm</Transaction>
+    <Transaction>2012/05/17 19:21:20.000.998,C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.pas=D:\image browser\ufullscreen.pas</Transaction>
+    <Transaction>2012/05/17 19:21:20.000.998,C:\Users\ANDORI\Documents\RAD Studio\Projects\ufullscreen.dfm=D:\image browser\ufullscreen.dfm</Transaction>
+    <Transaction>2012/05/17 19:22:33.000.420,=D:\image browser\Unit1.pas</Transaction>
+    <Transaction>2012/05/17 19:43:32.000.324,C:\Users\ANDORI\Documents\RAD Studio\Projects\Project1.dproj=D:\image browser\Project1.dproj</Transaction>
+    <Transaction>2012/05/17 20:11:31.000.481,D:\image browser\ufullscreen.pas=</Transaction>
+    <Transaction>2012/05/17 20:12:39.000.286,=D:\image browser\ufullscreen.pas</Transaction>
+    <Transaction>2012/05/17 20:13:34.000.420,D:\image browser\ufullscreen.pas=</Transaction>
+    <Transaction>2015/02/27 15:37:14.000.263,=G:\image\image browser\Unit2.pas</Transaction>
+    <Transaction>2015/02/27 15:37:37.000.405,G:\image\image browser\Koordinat.pas=G:\image\image browser\Unit2.pas</Transaction>
+  </Transactions>
+</BorlandProject>
