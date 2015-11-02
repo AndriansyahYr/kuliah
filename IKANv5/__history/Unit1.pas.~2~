@@ -1,0 +1,92 @@
+unit Unit1;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    StringIkanB: TStringGrid;
+    StringIkanA: TStringGrid;
+    Label1: TLabel;
+    Label2: TLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure readData();
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  i,j:integer;
+  myFile : TextFile;
+  text:string;
+begin
+     for i := 0 to StringIkanA.ColCount-1 do
+        for j := 0 to StringIkanA.RowCount-1 do
+        begin
+            if (i=0) then
+              StringIkanA.Cells[i,j]:=IntToStr(j);
+            if (i=0) and (j=0) then
+              StringIkanA.Cells[j,i]:='NO'
+            else if (i=0) and (j=1) then
+              StringIkanA.Cells[j,i]:='Panjang';
+        end;
+
+     for i := 0 to StringIkanB.ColCount-1 do
+        for j := 0 to StringIkanB.RowCount-1 do
+        begin
+            if (i=0) then
+              StringIkanB.Cells[i,j]:=IntToStr(j);
+            if (i=0) and (j=0) then
+              StringIkanB.Cells[j,i]:='NO'
+            else if (i=0) and (j=1) then
+              StringIkanB.Cells[j,i]:='Panjang';
+        end;
+        readData;
+  end;
+procedure tform1.readData();
+var
+  i,j,count,count2:integer;
+  txt : string;
+  myfile : TextFile;
+  list : TStrings;
+  begin
+    i:=1;
+    count:=2;
+    count2:=2;
+    txt := 'ikan.txt';
+    list:=TStringList.Create;
+    AssignFile(myfile, txt);
+    Reset(myfile);
+    while not eof(myfile) do
+    begin
+      Readln(myfile, txt);
+      ExtractStrings([chr(32)],[],Pchar(txt),list);
+//      if(list[i]='bandeng') then
+//      begin
+//        StringIkanA.cells[1,count-1]:=list[i-1];
+//        inc(count);
+//      end ;
+      ShowMessage(list[i]);
+//      ELSE if(list[i]='mujaer') then
+//      begin
+//        StringIkanB.Cells[1,count2-1]:=list[i-1];
+//        inc(count2);
+//      end;
+      inc(i);
+    end;
+    CloseFile(myfile);
+  end;
+end.
