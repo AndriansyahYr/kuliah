@@ -115,7 +115,7 @@ class CartesianPanel extends JPanel {
             fuzzy = 1/(1+(Math.pow(Math.abs((i-this.c[val])/this.a[val]),(2*this.b[val]))));
             Xawal = X_AXIS_FIRST_X_COORD + (i * xLength)-3;
             Yawal = Y_AXIS_SECOND_Y_COORD - ((fuzzy*10)* yLength);
-            if(i==1){
+            if(i==nilaiAwal){
               tempX = X_AXIS_FIRST_X_COORD + (i * xLength)-3;;
               tempY =  Y_AXIS_SECOND_Y_COORD - ((fuzzy*10)* yLength);
             }
