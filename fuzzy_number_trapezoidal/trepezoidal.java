@@ -124,7 +124,7 @@ class CartesianPanel extends JPanel {
             if(fuzzy<0.0)
               fuzzy = 0.0;
 
-            System.out.println(nilai1+" 1 "+nilai2);
+            // System.out.println(nilai1+" 1 "+nilai2);
             System.out.println(i+" "+fuzzy);
             Xawal = X_AXIS_FIRST_X_COORD + (i * xLength)-3;
             Yawal = Y_AXIS_SECOND_Y_COORD - ((fuzzy*10)* yLength);
@@ -164,8 +164,8 @@ class CartesianPanel extends JPanel {
         g2d.draw(new Line2D.Double(X_AXIS_FIRST_X_COORD,Y_AXIS_SECOND_Y_COORD - ((alfa*10)* yLength),
           X_AXIS_FIRST_X_COORD + (xCoordNumbers * xLength)-3,Y_AXIS_SECOND_Y_COORD - ((alfa*10)* yLength)));
         // double BA, BB;
-        double BB = a[val] * (Math.pow(((1/alfa) - 1), 1/(2*b[val]))) + c[val];
-        double BA = Math.abs(a[val] * (Math.pow(((1/alfa) - 1), 1/(2*b[val]))) - c[val]);
+        double BA = alfa*(this.b[val] - a[val])+a[val];
+        double BB = -alfa*(this.d[val] - c[val])+d[val];
         System.out.println("Batas Atas Gambar "+(val+1)+"  = "+BA);
         System.out.println("Batas Bawah Gambar "+(val+1)+" = "+BB);
         g2d.draw(new Line2D.Double(X_AXIS_FIRST_X_COORD + (BA * xLength)-3,
@@ -250,9 +250,9 @@ class CartesianPanel extends JPanel {
   for(int i=0;i<jumlahGrafik;i++){
     doDrawing(g, this.a[i], this.b[i], this.c[i], this.d[i], i);
   }
-  // for(int i=0;i<jumlahGrafik;i++){
-  //   alpaCut(g,this.alfa, i);
-  // }
+  for(int i=0;i<jumlahGrafik;i++){
+    alpaCut(g,this.alfa, i);
+  }
  }
 
 }
