@@ -41,18 +41,22 @@ class CartesianPanel extends JPanel {
   public static double std[];
   public static int sig[];
   public static double alfa;
-  public static int xCoordNumbers, nilaiAwal;
+  public static int xCoordNumbers;
+  public static int[] nilaiAwal;
+  public static int[] nilaiAkhir;
   public static int yCoordNumbers = 10;
   public static int jumlahGrafik;
   public CartesianPanel(){
     double data[];
     Scanner in = new Scanner(System.in);
-    double alfa = in.nextDouble();
-    int rangeAtas = in.nextInt();
-    int rangeBawah = in.nextInt(); 
+    int rangeAtas[];
+    int rangeBawah[]; 
+    xCoordNumbers = in.nextInt();
     int variabelLinguistik = in.nextInt();
     std = new double[variabelLinguistik];
     sig = new int[variabelLinguistik];
+    nilaiAwal = new int[variabelLinguistik];
+    nilaiAkhir = new int[variabelLinguistik];
     int temp = 0;
     while(temp<variabelLinguistik){
       int n = in.nextInt();
@@ -62,13 +66,18 @@ class CartesianPanel extends JPanel {
         data[t] = in.nextDouble();
         t++;
       }
+      nilaiAwal[temp] = in.nextInt();
+      nilaiAkhir[temp] = in.nextInt();
       std[temp] = findSTDEV(data);
-      sig[temp] = (int) rangeBawah/2;
+      sig[temp] = (int) (nilaiAkhir[temp]+nilaiAwal[temp])/2;
+      // System.out.println(nilaiAwal[temp]+" "+nilaiAkhir[temp]+" "+std[temp]+" "+sig[temp]);
       temp++;
     }
-    this.alfa = alfa;
-    this.xCoordNumbers = rangeBawah;
-    this.nilaiAwal = rangeAtas;
+    this.alfa = in.nextDouble();
+    // this.alfa = alfa;
+    // this.xCoordNumbers = nilaiAkhir[temp-1];
+    // this.nilaiAwal = rangeAtas;
+    // System.out.println(alfa);
     this.jumlahGrafik = variabelLinguistik;
   }
  // x-axis coord constants
@@ -114,8 +123,8 @@ class CartesianPanel extends JPanel {
         double Xawal =  X_AXIS_FIRST_X_COORD ;
         double Yawal = Y_AXIS_SECOND_Y_COORD;
         Point2D.Double point = new Point2D.Double(Xawal, Yawal);
-        int xLength = (X_AXIS_SECOND_X_COORD - X_AXIS_FIRST_X_COORD)/ xCoordNumbers;
-        int yLength = (Y_AXIS_SECOND_Y_COORD - Y_AXIS_FIRST_Y_COORD)/ yCoordNumbers;
+        double xLength = (X_AXIS_SECOND_X_COORD - X_AXIS_FIRST_X_COORD)/xCoordNumbers;
+        double yLength = (Y_AXIS_SECOND_Y_COORD - Y_AXIS_FIRST_Y_COORD)/ yCoordNumbers;
         if(val == 0){
           g2d.setColor(Color.blue);
         }
@@ -123,25 +132,30 @@ class CartesianPanel extends JPanel {
           g2d.setColor(Color.red);
         }
         else if(val == 2){
-          g2d.setColor(Color.green);
+          g2d.setColor(Color.black);
         }
         double tempX = 0.0, tempY=0.0;
-        for(int i=nilaiAwal;i<=xCoordNumbers;i++){
-            gaus = Math.exp(-((Math.pow((i - sig)/std,2))));
-            System.out.println(gaus);
+        double i = (double)nilaiAwal[val];
+        while(i<=nilaiAkhir[val]){
+         
+          gaus = Math.exp(-((Math.pow((i - sig)/std,2))));
+            // System.out.println(gaus);
             if(gaus>1.0){
               gaus = 0.0;
             }
             Xawal = X_AXIS_FIRST_X_COORD + (i * xLength)-3;
             Yawal = Y_AXIS_SECOND_Y_COORD - ((gaus*10)* yLength);
-            if(i==nilaiAwal){
+            if(i==nilaiAwal[val]){
               tempX = X_AXIS_FIRST_X_COORD + (i * xLength)-3;;
               tempY =  Y_AXIS_SECOND_Y_COORD - ((gaus*10)* yLength);
             }
             g2d.draw(new Line2D.Double(tempX, tempY, Xawal, Yawal));
             tempX = X_AXIS_FIRST_X_COORD + (i * xLength)-3;
             tempY =  Y_AXIS_SECOND_Y_COORD - ((gaus*10)* yLength);
+            i = i+0.1;
         }
+        // for(int i=nilaiAwal;i<=xCoordNumbers;i++){
+        //     }
         
     }
     public void alpaCut(Graphics g, double alfa, int val){
@@ -174,7 +188,6 @@ class CartesianPanel extends JPanel {
  public void paintComponent(Graphics g) {
   
   super.paintComponent(g);
-  
   Graphics2D g2 = (Graphics2D) g;
   
   g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
