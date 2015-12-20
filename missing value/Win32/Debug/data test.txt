@@ -1,0 +1,10 @@
+y	n	y	y	y	republican
+?	y	n	y	n	democrat
+n	n	?	y	y	republican
+y	y	n	n	n	democrat
+n	n	y	y	y	republican
+n	?	n	n	n	democrat
+y	n	y	n	y	republican
+y	n	y	?	y	democrat
+y	y	y	y	y	republican
+n	n	n	n	n	democrat

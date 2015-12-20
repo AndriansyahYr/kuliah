@@ -1,0 +1,195 @@
+unit IKAN;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Grids, Vcl.StdCtrls;
+
+type
+  TForm1 = class(TForm)
+    StringDataTest: TStringGrid;
+    Label1: TLabel;
+    Button1: TButton;
+    StringGrid1: TStringGrid;
+    StringGrid2: TStringGrid;
+    Button2: TButton;
+    procedure FormCreate(Sender: TObject);
+    procedure readData(str :TStringGrid; txt:string);
+    function hitungPeluang(str :TStringGrid; val:integer):double;
+    procedure isiStringGrid(str :TStringGrid);
+    procedure Button1Click(Sender: TObject);
+    procedure Button2Click(Sender: TObject);
+    procedure klasifikasiMissingValue();
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+  data1,noA,noB:integer;
+  dataTest : array[1..100,1..100] of String;
+  dataMissing : array[1..100,1..100] of String;
+  completeData : array[1..100,1..100] of String;
+implementation
+{$R *.dfm}
+function TForm1.hitungPeluang(str :TStringGrid; val:integer):double;
+var i, j,count,temp,temp2:integer;
+    status : boolean;
+    list : TStrings;
+    hasil : string;
+begin
+  i:=1;
+  j:=2;
+  temp:=0;
+  temp2:=1;
+  hasil:='0';
+  list:=TStringList.Create;
+  status:=true;
+  while(status) do
+  begin
+    if(str.Cells[1,i] = 'JUMLAH') then
+      break;
+    ExtractStrings(['-'],[],Pchar(str.Cells[1,i]),list);
+    if (val > StrToInt(list[temp])) and (val <= StrToInt(list[temp2])) then
+    begin
+       hasil:=str.Cells[j,i];
+       status:=false;
+       break;
+    end;
+    i:=i+1;
+    temp:=temp+2;
+    temp2:=temp2+2;
+  end;
+  hitungPeluang:=StrToFloat(hasil);
+end;
+
+procedure TForm1.Button1Click(Sender: TObject);
+begin
+  readData(StringDataTest,'data test.txt');
+  Button1.Enabled := false;
+  Button2.Enabled := true;
+end;
+procedure TForm1.isiStringGrid(str : TStringGrid);
+var
+  i,j:integer;
+begin
+//  ShowMessage('test');
+  for i := 0 to str.RowCount-1 do
+    for j := 0 to str.ColCount-1 do
+        begin
+            if (i=0) then
+              str.Cells[i,j]:=IntToStr(j);
+            if (i=0) and (j=0) then
+              str.Cells[j,i]:='No Records'
+            else if (i=0) and (j=1) then
+              str.Cells[j,i]:='Infants'
+            else if (i=0) and (j=2) then
+              str.Cells[j,i]:='Crime'
+            else if (i=0) and (j=3) then
+              str.Cells[j,i]:='Imigration'
+            else if (i=0) and (j=4) then
+              str.Cells[j,i]:='Duty Free'
+            else if (i=0) and (j=5) then
+              str.Cells[j,i]:='mx-missile'
+            else if (i=0) and (j=6) then
+              str.Cells[j,i]:='class'
+        end;
+end;
+procedure TForm1.Button2Click(Sender: TObject);
+begin
+  isiStringGrid(StringGrid2);
+  isiStringGrid(StringGrid1);
+  klasifikasiMissingValue();
+end;
+
+procedure TForm1.klasifikasiMissingValue();
+var
+  i,j, k, miss, complete:integer;
+  text:string;
+begin
+     miss:=0;
+     complete:=0;
+     for i := 1 to StringDataTest.RowCount-1 do
+        for j := 1 to StringDataTest.ColCount-1 do
+        begin
+          if(dataTest[i,j] ='?') then
+          begin
+            miss:=miss+1;
+            for k := 1 to StringDataTest.ColCount-1 do
+            begin
+              dataMissing[miss, k] := dataTest[miss, k];
+              StringGrid1.Cells[miss, k] := dataMissing[miss, k];
+            end;
+          end;
+        end;
+
+end;
+procedure TForm1.FormCreate(Sender: TObject);
+var
+  i,j:integer;
+  myFile : TextFile;
+  text:string;
+begin
+     for i := 0 to StringDataTest.ColCount-1 do
+        for j := 0 to StringDataTest.RowCount-1 do
+        begin
+            if (i=0) then
+              StringDataTest.Cells[i,j]:=IntToStr(j);
+            if (i=0) and (j=0) then
+              StringDataTest.Cells[j,i]:='No Records'
+            else if (i=0) and (j=1) then
+              StringDataTest.Cells[j,i]:='Infants'
+            else if (i=0) and (j=2) then
+              StringDataTest.Cells[j,i]:='Crime'
+            else if (i=0) and (j=3) then
+              StringDataTest.Cells[j,i]:='Imigration'
+            else if (i=0) and (j=4) then
+              StringDataTest.Cells[j,i]:='Duty Free'
+            else if (i=0) and (j=5) then
+              StringDataTest.Cells[j,i]:='mx-missile'
+            else if (i=0) and (j=6) then
+              StringDataTest.Cells[j,i]:='class'
+        end;
+
+end;
+procedure TForm1.readData(str :TStringGrid; txt:string);
+var i,j,count, count2,panjang:integer;
+    myFile:TextFile;
+    list : TStrings;
+//    list : array[1..100] of String;
+begin
+    i:=1;
+    j:=1;
+    count:=0;
+    count2:=0;
+//    jumFrek:=0;
+    list:=TStringList.Create;
+//    SetLength(list, 100);
+    AssignFile(myFile, txt);
+    Reset(myFile);
+    while not Eof(myFile) do
+    begin
+      while i<=7 do
+      begin
+        Readln(myFile, txt);
+        ExtractStrings([chr(9)],[],Pchar(txt),list);
+        if(i=7) then
+          begin
+            i := 1;
+            j:= j+1;
+          end;
+        if (count=60) then
+          break;
+        str.Cells[i,j]:= list[count];
+        dataTest[i,j] := list[count];
+//        ShowMessage(dataTest[i,j]);
+        i:=i+1;
+        count:=count+1;
+      end;
+    end;
+    CloseFile(myFile);
+end;
+end.

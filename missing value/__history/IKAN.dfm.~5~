@@ -1,0 +1,97 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'PENGPOL'
+  ClientHeight = 360
+  ClientWidth = 420
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Label1: TLabel
+    Left = 96
+    Top = 8
+    Width = 34
+    Height = 13
+    Caption = 'IKAN A'
+  end
+  object Label2: TLabel
+    Left = 296
+    Top = 8
+    Width = 33
+    Height = 13
+    Caption = 'IKAN B'
+  end
+  object Label3: TLabel
+    Left = 40
+    Top = 299
+    Width = 30
+    Height = 13
+    Caption = 'INPUT'
+  end
+  object Label4: TLabel
+    Left = 40
+    Top = 339
+    Width = 29
+    Height = 13
+    Caption = 'HASIL'
+  end
+  object StringIkanA: TStringGrid
+    Left = 8
+    Top = 27
+    Width = 201
+    Height = 257
+    ColCount = 3
+    RowCount = 10
+    TabOrder = 0
+  end
+  object StringIkanB: TStringGrid
+    Left = 215
+    Top = 27
+    Width = 201
+    Height = 257
+    ColCount = 3
+    RowCount = 10
+    TabOrder = 1
+    RowHeights = (
+      24
+      24
+      24
+      24
+      24
+      25
+      24
+      24
+      24
+      24)
+  end
+  object edPanjang: TEdit
+    Left = 88
+    Top = 296
+    Width = 121
+    Height = 21
+    TabOrder = 2
+  end
+  object btnProc: TButton
+    Left = 232
+    Top = 294
+    Width = 75
+    Height = 25
+    Caption = 'PROCESS'
+    TabOrder = 3
+    OnClick = btnProcClick
+  end
+  object edHasil: TEdit
+    Left = 88
+    Top = 336
+    Width = 121
+    Height = 21
+    TabOrder = 4
+  end
+end
