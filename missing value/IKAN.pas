@@ -15,6 +15,8 @@ type
     StringGrid2: TStringGrid;
     Button2: TButton;
     BitBtn1: TBitBtn;
+    StringGrid3: TStringGrid;
+    Button3: TButton;
     procedure FormCreate(Sender: TObject);
     procedure readData(str :TStringGrid; txt:string);
     function hitungPeluang(str :TStringGrid; val:integer):double;
@@ -24,8 +26,9 @@ type
     procedure klasifikasiMissingValue();
     procedure BitBtn1Click(Sender: TObject);
     procedure knn();
-    procedure sorting(hasil : array of real; atr:integer);
-    function findString(hasil:array of String) : String;
+    procedure sorting(hasil : array of real; atr:integer;c:integer);
+    procedure findString(hasil:array of String; c:integer);
+    procedure Button3Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -38,6 +41,7 @@ var
   dataTest : array[1..100,1..100] of String;
   dataMissing : array[1..100,1..100] of String;
   completeData : array[1..100,1..100] of String;
+  nilaiKnn : array[0..10] of String;
 implementation
 {$R *.dfm}
 function TForm1.hitungPeluang(str :TStringGrid; val:integer):double;
@@ -80,89 +84,113 @@ procedure TForm1.knn();
 var i,j, counter:integer;
     hitung:real;
     hasil : array[1..100] of real;
-    atribut : integer;
+    n,nilaiMiss, atribut : integer;
 begin
-  counter:=1;
-  for i := 1 to StringGrid2.RowCount-1 do
+  nilaiMiss:=4;
+  n:=1;
+  while(n<=nilaiMiss) do
   begin
-    hitung:=0;
-    for j := 1 to StringGrid2.ColCount-3 do
+    counter:=1;
+    for i := 1 to StringGrid2.RowCount-1 do
     begin
-//      if dataMissing[j, i]= '?' then
-//        atribut:= j;
-      if(completeData[j, i]=dataMissing[j, 3]) then
+      hitung:=0;
+      for j := 1 to StringGrid2.ColCount-3 do
       begin
-        hitung:=hitung+0;
-      end
-      else if(completeData[j, i]<>dataMissing[j,3]) and (dataMissing[j, 3] <> '?')then
-      begin
-        hitung:=hitung+1;
+        if dataMissing[j, n]= '?' then
+          atribut:= j;
+        if(completeData[j, i]=dataMissing[j, n]) then
+        begin
+          hitung:=hitung+0;
+        end
+        else if(completeData[j, i]<>dataMissing[j,n]) and (dataMissing[j, n] <> '?')then
+        begin
+          hitung:=hitung+1;
+        end;
       end;
+      hasil[counter]:=sqrt(hitung);
+      counter:=counter+1;
     end;
-    hasil[counter]:=sqrt(hitung);
-//    ShowMessage(FloatToStr(hasil[counter]));
-    counter:=counter+1;
+    sorting(hasil, atribut, n-1);
+    n:=n+1;
   end;
-  sorting(hasil, atribut);
 end;
 
-procedure TForm1.sorting(hasil : array of real; atr:integer);
-var i,j, size,nilaiK:integer;
+procedure TForm1.sorting(hasil : array of real; atr:integer; c:integer);
+var i,j, size,nilaiK, ketemu,n, k:integer;
 temp, minimum : real;
-n:integer;
+//n:integer;
 s : String;
 nilai : array [0..100, 0..100] of real;
 tempString : array[0..100] of String;
+hasil2 : array[0..100] of real;
 begin
-  size := 5;
-  nilaiK := 3;
-  atr := 2;
-  n:=0;
-      nilaiK:=nilaiK-1;
-      while (nilaiK>=0) do
+//    ShowMessage(IntToStr(atr));
+      size:=5;
+      nilaiK:=3;
+      //isi array
+      for i := 0 to size do
+        hasil2[i] := hasil[i];
+
+      for i := size downto 0 do
+        for j := 0 to i do
+        begin
+          if(hasil[i]<hasil[j]) then
+          begin
+            temp:=hasil[i];
+            hasil[i]:=hasil[j];
+            hasil[j]:=temp;
+          end;
+        end;
+
+      n:=0;
+
+      while(n<nilaiK) do
       begin
-        minimum:=hasil[0];
-//        ShowMessage(FloatToStr(minimum));
         for i := 0 to size do
         begin
-          if(minimum>hasil[i]) then
-            begin
-              n:=i;
-//              ShowMessage(IntToStr(n));
-              minimum:=hasil[i];
-              ShowMessage(FloatToStr(minimum));
-//              hasil[i]:=1000;
-//              break;
-            end;                      ;
-//            else ShowMessage('test');
+          if(hasil[n]=hasil2[i]) then
+          begin
+            ketemu:=i;
+            hasil2[i]:=100;
+            break;
+          end;
         end;
-        tempString[nilaiK]:=completeData[atr, n+1];
-        ShowMessage(IntToStr(n+1)+' '+tempString[nilaiK]);
-//        ShowMessage(tempString[nilaiK]);
-//          ShowMessage(IntToStr(n+1));
-        nilaiK:=nilaiK-1;
+//          n:=n+1;
+          tempString[n]:=completeData[atr, ketemu+1];
+//          ShowMessage(IntToStr(ketemu+1)+' '+tempString[n]);
+          n:=n+1;
       end;
-      s:=findString(tempString);
+      findString(tempString, c);
 end;
 
-function TForm1.findString(hasil:array of String) : String;
+procedure TForm1.findString(hasil:array of String; c : integer);
 var i, nilaiY, nilaiN:integer;
   minimum : real;
   output:String;
 begin
-  for i := 1 to 3 do
+  nilaiY:=0;
+  nilaiN:=0;
+  for i := 0 to 2 do
     begin
       if(hasil[i]='y') then
         nilaiY:=nilaiY+1
       else nilaiN:=nilaiN+1;
     end;
-//  if(nilaiY>nilaiN) then
-//    ShowMessage('y')
-//  else ShowMessage('n');
+
+  if(nilaiY>nilaiN) then
+  begin
+//    ShowMessage('y');
+    nilaiKnn[c] := 'y';
+  end
+  else
+  begin
+    nilaiKnn[c]:='n';
+//  ShowMessage('n');
+  end;
 end;
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  readData(StringDataTest,'data test.txt');
+  readData(StringDataTest,'data test - Copy.txt');
   Button1.Enabled := false;
   Button2.Enabled := true;
 end;
@@ -196,6 +224,36 @@ begin
   isiStringGrid(StringGrid2);
   isiStringGrid(StringGrid1);
   klasifikasiMissingValue();
+end;
+
+procedure TForm1.Button3Click(Sender: TObject);
+var i,j:integer;
+begin
+//  for i := 0 to 3 do
+//    ShowMessage(nilaiKnn[i]);
+
+
+  for i := 0 to StringGrid3.ColCount-1 do
+    for j := 0 to StringGrid3.RowCount-1 do
+        begin
+            if (i=0) then
+              StringGrid3.Cells[i,j]:=IntToStr(j);
+            if (i=0) and (j=0) then
+              StringGrid3.Cells[j,i]:='No Records'
+            else if (i=0) and (j=1) then
+              StringGrid3.Cells[j,i]:='Infants'
+            else if (i=0) and (j=2) then
+              StringGrid3.Cells[j,i]:='Crime'
+            else if (i=0) and (j=3) then
+              StringGrid3.Cells[j,i]:='Imigration'
+            else if (i=0) and (j=4) then
+              StringGrid3.Cells[j,i]:='Duty Free'
+            else if (i=0) and (j=5) then
+              StringGrid3.Cells[j,i]:='mx-missile'
+            else if (i=0) and (j=6) then
+              StringGrid3.Cells[j,i]:='class'
+        end;
+        readData(StringGrid3,'data test - Copy.txt');
 end;
 
 procedure TForm1.klasifikasiMissingValue();
@@ -261,10 +319,11 @@ begin
             else if (i=0) and (j=6) then
               StringDataTest.Cells[j,i]:='class'
         end;
-
+        for i := 0 to 3 do
+          nilaiKnn[i] :='?';
 end;
 procedure TForm1.readData(str :TStringGrid; txt:string);
-var i,j,count, count2,panjang:integer;
+var i,j,count, count2,panjang,k:integer;
     myFile:TextFile;
     list : TStrings;
 //    list : array[1..100] of String;
@@ -273,6 +332,7 @@ begin
     j:=1;
     count:=0;
     count2:=0;
+    k:=0;
 //    jumFrek:=0;
     list:=TStringList.Create;
 //    SetLength(list, 100);
@@ -280,19 +340,26 @@ begin
     Reset(myFile);
     while not Eof(myFile) do
     begin
-      while i<=7 do
+      while i<=18 do
       begin
         Readln(myFile, txt);
         ExtractStrings([chr(9)],[],Pchar(txt),list);
-        if(i=7) then
+        if(i=18) then
           begin
             i := 1;
             j:= j+1;
           end;
-        if (count=60) then
+        if (count=170) then
           break;
         str.Cells[i,j]:= list[count];
         dataTest[i,j] := list[count];
+        if (dataTest[i,j]='?') then
+        begin
+          dataTest[i,j]:= nilaiKnn[k];
+          str.Cells[i,j]:=nilaiKnn[k];
+//          ShowMessage(nilaiKnn[k]);
+          k:=k+1;
+        end;
         i:=i+1;
         count:=count+1;
       end;

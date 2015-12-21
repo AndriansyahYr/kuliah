@@ -1,9 +1,9 @@
 object Form1: TForm1
   Left = 0
   Top = 0
-  Caption = 'PENGPOL'
+  Caption = 'Missing Value'
   ClientHeight = 700
-  ClientWidth = 552
+  ClientWidth = 1109
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -26,7 +26,7 @@ object Form1: TForm1
     Top = 27
     Width = 529
     Height = 278
-    ColCount = 8
+    ColCount = 19
     RowCount = 11
     TabOrder = 0
   end
@@ -44,7 +44,7 @@ object Form1: TForm1
     Top = 342
     Width = 529
     Height = 130
-    ColCount = 8
+    ColCount = 19
     TabOrder = 2
   end
   object StringGrid2: TStringGrid
@@ -52,7 +52,7 @@ object Form1: TForm1
     Top = 478
     Width = 529
     Height = 179
-    ColCount = 8
+    ColCount = 19
     RowCount = 7
     TabOrder = 3
   end
@@ -74,5 +74,23 @@ object Form1: TForm1
     Caption = 'BitBtn1'
     TabOrder = 5
     OnClick = BitBtn1Click
+  end
+  object StringGrid3: TStringGrid
+    Left = 568
+    Top = 27
+    Width = 529
+    Height = 278
+    ColCount = 19
+    RowCount = 11
+    TabOrder = 6
+  end
+  object Button3: TButton
+    Left = 656
+    Top = 368
+    Width = 75
+    Height = 25
+    Caption = 'Button3'
+    TabOrder = 7
+    OnClick = Button3Click
   end
 end
